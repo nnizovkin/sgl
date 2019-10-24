@@ -5,30 +5,10 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.Collections;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
-public class DirectGraphTest {
-    @Test
-    public void addVertexTest() {
-        DirectGraph<String> graph = new DirectGraph<>();
-        assertTrue(graph.addVertex("A"));
-        assertFalse(graph.addVertex("A"));
-        assertTrue(graph.addVertex("B"));
-        assertFalse(graph.addVertex("A"));
-    }
-
-    @Test
-    public void addEdgeTest() {
-        DirectGraph<String> graph = new DirectGraph<>();
-        assertFalse(graph.addEdge("A", "B"));
-        graph.addVertex("A");
-        graph.addVertex("B");
-        assertTrue(graph.addEdge("A", "B"));
-        assertTrue(graph.addEdge("A", "B"));
-        assertFalse(graph.addEdge("A", "C"));
-    }
-
-
+public class GraphAlgorithmsTest {
     @Test
     public void getPathTestOne() {
         DirectGraph<Integer> graph = new DirectGraph<>();
@@ -43,12 +23,14 @@ public class DirectGraphTest {
         graph.addEdge(3, 1);
         graph.addEdge(4, 3);
 
-        assertEquals(Arrays.asList(1, 2, 3), graph.getPath(1, 3));
-        assertEquals(Arrays.asList(1, 2), graph.getPath(1, 2));
-        assertEquals(Arrays.asList(2, 3), graph.getPath(2, 3));
-        assertEquals(Collections.singletonList(1), graph.getPath(1, 1));
-        assertNull(graph.getPath(1, 0));
-        assertNull(graph.getPath(1, 4));
+        GraphAlgorithms graphAlgorithms = new GraphAlgorithms();
+
+        assertEquals(Arrays.asList(1, 2, 3), graphAlgorithms.getPath(graph, 1, 3));
+        assertEquals(Arrays.asList(1, 2), graphAlgorithms.getPath(graph, 1, 2));
+        assertEquals(Arrays.asList(2, 3), graphAlgorithms.getPath(graph, 2, 3));
+        assertEquals(Collections.singletonList(1), graphAlgorithms.getPath(graph, 1, 1));
+        assertNull(graphAlgorithms.getPath(graph, 1, 0));
+        assertNull(graphAlgorithms.getPath(graph, 1, 4));
     }
 
     @Test
@@ -65,10 +47,12 @@ public class DirectGraphTest {
         graph.addEdge(3, 4);
         graph.addEdge(3, 5);
 
-        assertEquals(Arrays.asList(1, 3, 5), graph.getPath(1, 5));
-        assertEquals(Arrays.asList(1, 2), graph.getPath(1, 2));
-        assertEquals(Arrays.asList(1, 3), graph.getPath(1, 3));
-        assertNull(graph.getPath(2, 3));
+        GraphAlgorithms graphAlgorithms = new GraphAlgorithms();
+
+        assertEquals(Arrays.asList(1, 3, 5), graphAlgorithms.getPath(graph, 1, 5));
+        assertEquals(Arrays.asList(1, 2), graphAlgorithms.getPath(graph, 1, 2));
+        assertEquals(Arrays.asList(1, 3), graphAlgorithms.getPath(graph, 1, 3));
+        assertNull(graphAlgorithms.getPath(graph, 2, 3));
     }
 
     @Test
@@ -96,10 +80,12 @@ public class DirectGraphTest {
         graph.addEdge(4, 3);
         graph.addEdge(4, 4);
 
-        assertEquals(Arrays.asList(1, 2), graph.getPath(1, 2));
-        assertEquals(Collections.singletonList(1), graph.getPath(1, 1));
-        assertEquals(Arrays.asList(1, 3), graph.getPath(1, 3));
-        assertEquals(Arrays.asList(1, 4), graph.getPath(1, 4));
+        GraphAlgorithms graphAlgorithms = new GraphAlgorithms();
+
+        assertEquals(Arrays.asList(1, 2), graphAlgorithms.getPath(graph, 1, 2));
+        assertEquals(Collections.singletonList(1), graphAlgorithms.getPath(graph, 1, 1));
+        assertEquals(Arrays.asList(1, 3), graphAlgorithms.getPath(graph, 1, 3));
+        assertEquals(Arrays.asList(1, 4), graphAlgorithms.getPath(graph, 1, 4));
     }
 
     @Test
@@ -117,6 +103,9 @@ public class DirectGraphTest {
         graph.addEdge(4, 5);
         graph.addEdge(5, 3);
 
-        assertEquals(Arrays.asList(1, 4, 5, 3), graph.getPath(1, 3));
+        GraphAlgorithms graphAlgorithms = new GraphAlgorithms();
+
+        assertEquals(Arrays.asList(1, 4, 5, 3), graphAlgorithms.getPath(graph, 1, 3));
     }
+
 }
